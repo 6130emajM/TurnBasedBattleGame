@@ -1,16 +1,20 @@
 from character import Character
 import random
 
-class EvilWizard(Character):
+class EvilWizard(Character):  
     def __init__(self):
-        super().__init__("Evil Wizard", health=150, attack_power=15)
+        super().__init__("Evil Wizard", 100, 15)  # ✅ No need for an argument
+
+    def special_ability(self, opponent):
+        """Dark magic attack"""
+        damage = random.randint(10, 25)
+        opponent.health -= damage
+        print(f"The Evil Wizard casts a dark spell on {opponent.name} for {damage} damage!")
 
     def regenerate(self):
-        regen = random.randint(5, 10)
-        self.health += regen
-        print(f"{self.name} regenerates {regen} health! Current health: {self.health}")
+        """Regenerate health"""
+        heal_amount = random.randint(5, 15)
+        self.health = min(self.max_health, self.health + heal_amount)
+        print(f"The Evil Wizard regenerates {heal_amount} health!")
 
-    def dark_spell(self, opponent):
-        damage = random.randint(20, 35)
-        opponent.health -= damage
-        print(f"{self.name} casts Dark Spell on {opponent.name} for {damage} damage!")
+
